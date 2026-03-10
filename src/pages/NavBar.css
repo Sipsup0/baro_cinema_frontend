@@ -1,0 +1,84 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Inter", sans-serif;
+    width: 100%;
+    
+  }
+  
+
+ /* NAVBAR */
+.navbar{
+    position: fixed;
+    top: 0 ;
+    background:black;
+    color:white;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    height:100px;
+    border-bottom:2px solid;
+    border-color:#ff7a00;
+  }
+  
+  /* BAL OLDAL */
+  .nav-left{
+    display:flex;
+    align-items:center;
+  }
+  
+  .logoPicture{
+    width:180px;
+  }
+  
+  /* KÖZÉP */
+  .nav-center{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:14px;
+  }
+  
+  .gpsImage{
+    width:40px;
+  }
+
+  
+  /* JOBB OLDAL */
+  .nav-right{
+    display:flex;
+    align-items:center;
+    gap:25px;
+  }
+  
+  .nav-link{
+    text-decoration:none;
+    color:#ccc;
+    font-size:14px;
+    display:flex;
+    align-items:center;
+    gap:25px;
+  }
+  
+  .nav-link:hover{
+    color:white;
+  }
+  
+  .userImage{
+    width:30px;
+    margin-left: 200px;
+  }
+  
+  .logout-btn{
+    background:#ff7a00;
+    border:none;
+    margin-right: 30px;
+    color:white;
+    border-radius:5px;
+    cursor:pointer;
+  }
+  
+  .logout-btn:hover{
+    background:#ff9c33;
+  }

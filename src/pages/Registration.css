@@ -1,0 +1,213 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  justify-content: center;
+  font-family: "Inter", sans-serif;
+}
+
+.register-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+
+#background_image{
+  width: 100%;
+}
+
+img{
+   width: 400px;
+}
+
+/* main */
+.register-container {
+  width: 1100px;
+  max-width: 100%;
+  min-height: 650px;
+  background: #ffffff;
+  display: flex;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+}
+
+/* bal oldal */
+.register-left {
+  flex: 1;
+  background: linear-gradient(120deg, #db7500, #e000d5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px;
+  color: white;
+}
+
+.brand {
+  text-align: center;
+}
+
+.logo {
+  font-size: 50px;
+  margin-bottom: 20px;
+}
+
+.brand h2 {
+  font-size: 28px;
+  letter-spacing: 2px;
+  margin-bottom: 15px;
+
+}
+
+.brand p {
+  font-size: 14px;
+  opacity: 0.9;
+  margin-bottom: 50px;
+}
+
+/* jobb oldal */
+.register-right {
+  flex: 1.2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px;
+}
+
+.form-wrapper {
+  width: 100%;
+  max-width: 420px;
+}
+
+.form-wrapper h1 {
+  color: black;
+  width: 100%;
+  text-align: center;
+  font-size:25px;
+  margin-bottom: 50px;
+  border-radius: 12px;
+  padding: 15px;
+
+}
+
+/* FORM */
+.form-row {
+  display: flex;
+  gap: 20px;
+}
+
+.form-group {
+  position: relative;
+  margin-bottom: 25px;
+  flex: 1;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px 10px;
+  border: none;
+  border-bottom: 2px solid #ddd;
+  font-size: 14px;
+  outline: none;
+  background: transparent;
+  transition: 0.3s;
+}
+
+.form-group input:focus {
+  border-bottom: 2px solid #f7931e;
+}
+
+.form-group label {
+  position: absolute;
+  left: 10px;
+  top: 12px;
+  font-size: 14px;
+  color: #999;
+  transition: 0.3s;
+  pointer-events: none;
+}
+
+.form-group input:focus + label,
+.form-group input:not(:placeholder-shown) + label {
+  top: -8px;
+  font-size: 11px;
+  color: #f7931e;
+}
+input{
+  color: #303030;
+}
+
+/* Button */
+.submit-btn {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(120deg,#ff8800, #e000d5);
+  border: none;
+  border-radius: 30px;
+  color: white;
+  font-weight: 600;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition:  0.5s ease-in-out;
+  margin-top: 10px;
+}
+
+.submit-btn:hover {
+  background: #313131;
+  transform: translateY(-3px);
+}
+
+.login-link {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 13px;
+  color: #666;
+}
+
+.login-link span {
+  color: #f7931e;
+  font-weight: 600;
+  cursor: pointer;
+}
+.home-link{
+  text-align: center;
+  margin-top: 30px;
+  font-size: 13px;
+  color: #303030;
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .register-container {
+    flex-direction: column;
+  }
+
+  .register-left {
+    padding: 40px;
+  }
+
+  .register-right {
+    padding: 40px;
+  }
+}
+
+/* Mobil */
+@media (max-width: 600px) {
+  .form-row {
+    flex-direction: column;
+  }
+
+  .register-page {
+    padding: 20px;
+  }
+
+  .register-left {
+    padding: 30px;
+  }
+
+  .register-right {
+    padding: 30px 20px;
+  }
+}
