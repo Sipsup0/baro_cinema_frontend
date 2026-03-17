@@ -12,6 +12,10 @@ export default function NavBar({ user, onLogout, }) {
   return (
     <div className="navbar">
 
+      <div className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>
+        ☰
+      </div>
+
       {/* BAL OLDAL */}
       <div className="nav-left">
         <img src="/pictures/logo.png" alt="logo" className="logoPicture" />

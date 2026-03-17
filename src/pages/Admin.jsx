@@ -19,50 +19,6 @@ export default function Home() {
     const [userError, setUserError] = useState(null)
     console.log(userError);
 
-    const movies = [
-        {
-            id: 1,
-            title: "A csontok tava",
-            image: {Pic1},
-            genre: "Horror",
-            time: "94 perc"
-        },
-        {
-            id: 2,
-            title: "Sikoly 7",
-            image: {Pic2},
-            genre: "Horror",
-            time: "115 perc"
-        },
-        {
-            id: 3,
-            title: "Zootropolis 2",
-            image: {Pic3},
-            genre: "Animációs film",
-            time: "111 perc"
-        },
-        {
-            id: 4,
-            title: "AVATAR: Tűz és Hamu",
-            image: {Pic4},
-            genre: "Horror",
-            time: "197 perc"
-        },
-        {
-            id: 5,
-            title: "The Housemaid - A téboly otthona",
-            image: {Pic5},
-            genre: "Thriller",
-            time: "131 perc"
-        },
-        {
-            id: 6,
-            title: "Horrorra Akadva 6 (HAMAROSAN)",
-            image: {Pic6},
-            genre: "Horror, Vígjáték",
-            time: "- perc"
-        },
-    ]
 
     //console.log(user);
     useEffect(() => {
