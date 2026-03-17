@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import NavBar from "../components/NavBar";
 
 import "../pages/NavBar.css"
-import "../pages/Home.css"
-import { whoami, logout } from "../users"
+import "../pages/Admin.css"
+import { whoami, logout, admin } from "../users"
 
 import Pic1 from '../../pictures/BoneLake.jpg'
 import Pic2 from '../../pictures/Sikoly_7.jpg'
@@ -86,12 +86,23 @@ export default function Home() {
         setUser(null)
         navigate('/')
     }
+
+    async function isAdmin() {
+        const data = await admin()
+        if (data.error) {
+            return setUserError(data.error)
+        }
+        setUser(null)
+        navigate('/')
+    }
     return (
 
         <div>
             <div>
 
                 <NavBar user={user} onLogout={onLogout}></NavBar>
+                {userError && <div className='alert alert-danger text-center my-2'>{userError}</div>}
+                <NavBar user={user} onLogout={isAdmin}></NavBar>
                 {userError && <div className='alert alert-danger text-center my-2'>{userError}</div>}
                 <div className="title">
                     <h1>Most műsoron</h1>

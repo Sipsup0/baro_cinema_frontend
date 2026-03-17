@@ -51,3 +51,14 @@ export async function logout() {
     return await res.json()
 }
 
+export async function admin() {
+    const res = await fetch(`${BACKEND_URL}/admin`,{
+        method:'POST',
+        credentials:'include'
+    })
+    if (!res.ok) {
+        const data = await res.json()
+        return {error: data?.error}
+    }
+    return await res.json()
+}

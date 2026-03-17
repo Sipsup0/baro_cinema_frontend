@@ -1,16 +1,16 @@
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import Button from './Button'
 import "../pages/NavBar.css"
 
-export default function NavBar( {user, onLogout, }) {
-    //console.log(user);
-    const isLoggedIn = !!user
-    //console.log(isLoggedIn);
-    const isAdmin =user?.role === 'admin' 
-    console.log(isAdmin);
+export default function NavBar({ user, onLogout, }) {
+  //console.log(user);
+  const isLoggedIn = !!user
+  //console.log(isLoggedIn);
+  const isAdmin = user?.role === 'admin'
+  console.log(isAdmin);
 
-    return (
-        <div className="navbar">
+  return (
+    <div className="navbar">
 
       {/* BAL OLDAL */}
       <div className="nav-left">
@@ -29,7 +29,7 @@ export default function NavBar( {user, onLogout, }) {
         {!isLoggedIn && (
           <>
             <Link to="/login" className="nav-link">
-              <img src="/pictures/user.png" className="userImage" alt="user"/>
+              <img src="/pictures/user.png" className="userImage" alt="user" />
               Bejelentkezés
             </Link>
 
@@ -43,8 +43,8 @@ export default function NavBar( {user, onLogout, }) {
           <>
             <Link to="/" className="nav-link">Fiókom</Link>
 
-            {isAdmin && (
-              <Link to="/admin" className="nav-link admin-link">
+            {(
+              <Link to="/admin" className="admin-link">
                 Admin panel
               </Link>
             )}
@@ -59,5 +59,5 @@ export default function NavBar( {user, onLogout, }) {
       </div>
 
     </div>
-    )
+  )
 }
