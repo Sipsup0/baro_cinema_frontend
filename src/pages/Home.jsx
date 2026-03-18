@@ -1,59 +1,72 @@
-import { useState, useEffect, use } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import NavBar from "../components/NavBar";
 
 import "../pages/NavBar.css"
 import "../pages/Home.css"
 import { whoami, logout } from "../users"
-
-import Pic1 from '../../pictures/BoneLake.jpg'
-import Pic2 from '../../pictures/Sikoly_7.jpg'
-import Pic3 from '../../pictures/Zootropolis_2.jpg'
-import Pic4 from '../../pictures/Avatarfireandash.jpg'
-import Pic5 from '../../pictures/Thehousemaid.jpg'
-import Pic6 from '../../pictures/Scarymovie_6.jfif'
+const BACKEND_URL = '/user'
 
 export default function Home() {
+
     const navigate = useNavigate()
+
     const [user, setUser] = useState(null)
     const [userError, setUserError] = useState(null)
 
-    const data = [{title: "A csontok tava | Horror | 94 perc", picture: Pic1}, {title: "Sikoly 7 | Horror | 114 perc", picture: Pic2}, {title: "Zootropolisz 2 | Animáció | 110 perc", picture: Pic3}, {title: "Avatar: Tűz és hamu | Sci-fi | 197 perc", picture: Pic4}, {title: "The Housemaid | Thriller | 133 perc", picture: Pic5}, {title: "Horrorra akadva 6 | Vígjáték | HAMAROSAN", picture: Pic6}]
-    const [startIndex, setStartIndex] = useState(0)
+    /* betoltes backendbol */
+    const [movies, setMovies] = useState([])
 
+    const [startIndex, setStartIndex] = useState(0)
     const [visibleCount, setVisibleCount] = useState(3)
 
+    /* responsive */
     useEffect(() => {
         function handleResize() {
-            if (window.innerWidth < 600) {
-                setVisibleCount(1)
-            } else if (window.innerWidth < 900) {
-                setVisibleCount(2)
-            } else {
-                setVisibleCount(5)
-            }
+            if (window.innerWidth < 600) setVisibleCount(1)
+            else if (window.innerWidth < 900) setVisibleCount(2)
+            else setVisibleCount(5)
         }
-    
+
         handleResize()
         window.addEventListener("resize", handleResize)
         return () => window.removeEventListener("resize", handleResize)
     }, [])
 
+    /* user */
     useEffect(() => {
-        async function load() {
+        async function loadUser() {
             const data = await whoami()
             if (!data?.error) setUser(data)
             setUserError(data.error)
         }
-        load()
+        loadUser()
+    }, [])
+
+    /*  filmek betoltese */
+    useEffect(() => {
+        async function loadMovies() {
+            try {
+                const res = await fetch(`${BACKEND_URL}/movies/all`)
+                const data = await res.json()
+
+                // ha {movies: []}
+                setMovies(data.movies || data)
+
+            } catch (err) {
+                console.error(err)
+            }
+        }
+
+        loadMovies()
     }, [])
 
     function nextSlide() {
-        if (startIndex + visibleCount < data.length) {
+        if (startIndex + visibleCount < movies.length) {
             setStartIndex(startIndex + 1)
         }
     }
-    
+
     function prevSlide() {
         if (startIndex > 0) {
             setStartIndex(startIndex - 1)
@@ -69,29 +82,54 @@ export default function Home() {
 
     return (
         <div>
+
             <NavBar user={user} onLogout={onLogout} />
 
-            {userError && <div className='alert alert-danger text-center my-2'>{userError}</div>}
+            {userError && (
+                <div className='alert alert-danger text-center my-2'>
+                    {userError}
+                </div>
+            )}
 
             <div className="title">
                 <h1>Most műsoron</h1>
             </div>
 
             <div className="carousel">
+
                 <button onClick={prevSlide}>❮</button>
 
                 <div className="images">
-                    {data.slice(startIndex, startIndex + visibleCount).map((d, i) => (
-                        <div>
-                            <img key={i} src={d.picture} className="movie-img" />
-                            <div className="movie-title">{d.title}</div>
+
+                    {movies
+                        .slice(startIndex, startIndex + visibleCount)
+                        .map((movie, i) => (
+
+                        <div
+                            key={movie.id || movie._id || i}
+                            onClick={() => navigate("/movie/" + (movie.id || movie._id))}
+                        >
+
+                            <img
+                                src={movie.image || movie.picture}
+                                className="movie-img"
+                                alt={movie.title}
+                            />
+
+                            <div className="movie-title">
+                                {movie.title || movie.name} | {movie.genre} | {movie.length || movie.duration} perc
+                            </div>
+
                         </div>
-                        
+
                     ))}
+
                 </div>
 
                 <button onClick={nextSlide}>❯</button>
+
             </div>
+
         </div>
     )
 }

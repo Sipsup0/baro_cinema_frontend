@@ -15,7 +15,7 @@ export default defineConfig({
       '/user':{
         target:'http://192.168.9.110:4500',
         changeOrigin:true
-
+        
       }
     }
   }

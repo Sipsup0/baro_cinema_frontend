@@ -20,7 +20,9 @@
     color: white;
     box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
     display: flex;
-    margin-bottom: 200px;
+    justify-content: center; /* EZ HIÁNYZOTT */
+    align-items: center;
+    margin-bottom: 80px; /* kisebb legyen */
     background: linear-gradient(120deg,#ff8800, #e000d5);
 }
 
@@ -44,14 +46,15 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
-    padding: 10px;
+    gap: 20px; /* több tér */
+    padding: 20px;
 }
 
-.images {
+.images > div {
     display: flex;
-    gap: 10px;
-    overflow: hidden;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
 }
 
 /* Alap (desktop) */
@@ -85,17 +88,22 @@
 }
 
 .carousel button {
-    width: 40px;
-    height: 40px;
-    font-size: 20px;
+    width: 45px;
+    height: 45px;
+    font-size: 22px;
     border-radius: 50%;
     border: none;
     cursor: pointer;
-    margin: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
     background: linear-gradient(120deg,#ff8800, #e000d5);
+    color: white;
+    transition: 0.3s;
+}
+
+.carousel button:hover {
+    transform: scale(1.1);
 }
 
 .movie-img {
@@ -107,16 +115,18 @@
 }
 
 .movie-img:hover {
-    transform: scale(1.05);
+    transform: scale(1.08);
+    box-shadow: 0 10px 30px rgba(255, 136, 0, 0.6);
 }
 
 .movie-title {
-    justify-content: center;
-    display: flex;
-    flex-direction: column;
+    margin-top: 10px;
+    color: white;
+    font-size: 14px;
+    text-align: center;
+    max-width: 200px;
+    line-height: 1.4;
 }
-
-
 
 .caption-container {
     text-align: center;
