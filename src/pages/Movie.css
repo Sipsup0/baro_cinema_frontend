@@ -7,6 +7,7 @@
 
 .movie-card{
     background: #1b1b1b;
+    
     border-radius: 10px;
     overflow: hidden;
     cursor: pointer;

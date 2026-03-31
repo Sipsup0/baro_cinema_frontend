@@ -47,7 +47,7 @@ export default function Home() {
     useEffect(() => {
         async function loadMovies() {
             try {
-                const res = await fetch(`${BACKEND_URL}/movies/all`)
+                const res = await fetch("http://192.168.9.110:4500/movies/all")
                 const data = await res.json()
 
                 // ha {movies: []}

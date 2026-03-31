@@ -32,6 +32,10 @@ export default function NavBar({ user, onLogout, }) {
 
         {!isLoggedIn && (
           <>
+            <Link to="/" className="nav-link">
+              Vissza a főoldalra
+            </Link>
+
             <Link to="/login" className="nav-link">
               <img src="/pictures/user.png" className="userImage" alt="user" />
               Bejelentkezés
