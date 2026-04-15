@@ -46,9 +46,18 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 100%;
     gap: 20px; /* több tér */
     padding: 20px;
 }
+
+.images {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+  }
 
 .images > div {
     display: flex;
@@ -97,6 +106,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
     background: linear-gradient(120deg,#ff8800, #e000d5);
     color: white;
     transition: 0.3s;

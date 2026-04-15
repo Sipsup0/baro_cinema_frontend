@@ -1,13 +1,14 @@
 .movies-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit,minmax(220px, 1fr));
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 20px;
     padding: 40px;
 }
 
 .movie-card{
+    width: 220px;
     background: #1b1b1b;
-    
     border-radius: 10px;
     overflow: hidden;
     cursor: pointer;

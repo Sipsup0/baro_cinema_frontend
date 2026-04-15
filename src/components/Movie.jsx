@@ -44,7 +44,9 @@ export default function Movie({ user, onLogout, }) {
 
             <NavBar />
 
-            <div className="movies-container">
+            <div className="movies-container" style={{
+                width: "100%"
+            }}>
                 {movies.map((movie, i) => (
                     <div
                         key={movie.id || i}
