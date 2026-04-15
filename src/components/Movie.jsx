@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import NavBar from "./NavBar"
-import "../pages/Movie.css"
+import "../pages/Seats.css"
+
+navigate("/Seats/" + movie.id)
 
 export default function Movie({ user, onLogout, }) {
 
@@ -45,7 +47,7 @@ export default function Movie({ user, onLogout, }) {
             <NavBar />
 
             <div className="movies-container" style={{
-                width: "100%"
+                
             }}>
                 {movies.map((movie, i) => (
                     <div

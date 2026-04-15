@@ -99,31 +99,33 @@ export default function Home() {
 
                 <button onClick={prevSlide}>❮</button>
 
-                <div className="images">
+                <div  className="wrapper ">
+                    <div className="images ">
 
-                    {movies
-                        .slice(startIndex, startIndex + visibleCount)
-                        .map((movie, i) => (
+                        {movies
+                            .slice(startIndex, startIndex + visibleCount)
+                            .map((movie, i) => (
 
-                        <div
-                            key={movie.id || movie._id || i}
-                            onClick={() => navigate("/movie/" + (movie.id || movie._id))}
-                        >
+                                <div className=""
+                                    key={movie.id || movie._id || i}
+                                    onClick={() => navigate("/movie/" + (movie.id || movie._id))}
+                                >
 
-                            <img
-                                src={movie.image || movie.picture}
-                                className="movie-img"
-                                alt={movie.title}
-                            />
+                                    <img
+                                        src={movie.image || movie.picture}
+                                        className="movie-img"
+                                        alt={movie.title}
+                                    />
 
-                            <div className="movie-title">
-                                {movie.title || movie.name} | {movie.genre} | {movie.length || movie.duration} perc
-                            </div>
+                                    <div className="movie-title">
+                                        {movie.title || movie.name} | {movie.genre} | {movie.length || movie.duration} perc
+                                    </div>
 
-                        </div>
+                                </div>
 
-                    ))}
+                            ))}
 
+                    </div>
                 </div>
 
                 <button onClick={nextSlide}>❯</button>

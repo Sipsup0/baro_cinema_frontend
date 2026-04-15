@@ -52,9 +52,9 @@
 }
 
 .images {
-    flex: 1;
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
+
     gap: 20px;
     justify-content: center;
   }
@@ -65,6 +65,7 @@
     align-items: center;
     cursor: pointer;
 }
+
 
 /* Alap (desktop) */
 .movie-img {
@@ -171,3 +172,13 @@
 .demo:hover {
     opacity: 1;
 }
+
+.wrapper {
+    max-width: 250px;   /* állítsd 800–1200 között */
+    margin: 0 auto;     /* középre */
+    display: flex;
+    flex-direction: column;
+
+    gap: 20px;
+    justify-content: center;
+  }

@@ -7,6 +7,7 @@ import Registration from './pages/Registration'
 import Login from './pages/Login'
 import Home from './pages/Home'
 import Admin from './pages/Admin'
+import Seats from "./pages/Seats"
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -16,6 +17,7 @@ createRoot(document.getElementById('root')).render(
         <Route path='/register' element={<Registration/>} />
         <Route path='/login' element={<Login/>} />
         <Route path='/admin' element={<Admin/>} />
+        <Route path="/seats/:id" element={<Seats />} />
       </Routes>
     </BrowserRouter>
     
