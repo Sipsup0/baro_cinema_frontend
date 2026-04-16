@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom"
 import NavBar from "./NavBar"
 import "../pages/Seats.css"
 
-navigate("/Seats/" + movie.id)
+navigate("/seats/" + movie.movieId)
 
 export default function Movie({ user, onLogout, }) {
 
@@ -17,15 +17,15 @@ export default function Movie({ user, onLogout, }) {
         async function loadMovies() {
             try {
 
-                const res = await fetch("http://192.168.9.110:4500")
+                const res = await fetch("http://192.168.9.110:4500/movies/all")
 
                 const data = await res.json()
+                setMovies(data)
 
                 if (!res.ok) {
                     throw new Error(data.error || "Hiba történt")
                 }
 
-                setMovies(data)
             } catch (err) {
                 setError(err.message)
             } finally {
@@ -47,13 +47,15 @@ export default function Movie({ user, onLogout, }) {
             <NavBar />
 
             <div className="movies-container" style={{
-                
+
             }}>
-                {movies.map((movie, i) => (
+                {movies.map((movie) => (
                     <div
-                        key={movie.id || i}
-                        className="movie-card"
-                        onClick={() => navigate("/movie/" + (movie.id || i))}
+                        key={movie.movieId}
+                        onClick={() => {
+                            console.log("CLICK:", movie)
+                            navigate("/movies/" + movie.movieId)
+                        }}
                     >
 
                         <img

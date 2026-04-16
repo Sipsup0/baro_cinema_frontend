@@ -1,64 +1,77 @@
 import { useState } from "react"
-import "../pages/Seats.css"
+import { useParams } from "react-router-dom"
+import "./Seats.css"
 
 export default function Seats() {
 
-    const rows = 6
-    const cols = 8
+  const { id } = useParams() // 🎬 melyik filmre foglalunk
 
-    const [selectedSeats, setSelectedSeats] = useState([])
+  const rows = 5
+  const cols = 5
 
-    // fake foglalt helyek (backend később)
-    const reservedSeats = ["1-2", "2-5", "3-4"]
+  const [selectedSeats, setSelectedSeats] = useState([])
 
-    function toggleSeat(row, col) {
-        const seatId = `${row}-${col}`
+  // később backendből jön
+  const reservedSeats = ["1-1", "2-3"]
 
-        if (reservedSeats.includes(seatId)) return
+  function toggleSeat(row, col) {
+    const seatId = `${row}-${col}`
 
-        if (selectedSeats.includes(seatId)) {
-            setSelectedSeats(selectedSeats.filter(s => s !== seatId))
-        } else {
-            setSelectedSeats([...selectedSeats, seatId])
-        }
+    if (reservedSeats.includes(seatId)) return
+
+    if (selectedSeats.includes(seatId)) {
+      setSelectedSeats(selectedSeats.filter(s => s !== seatId))
+    } else {
+      setSelectedSeats([...selectedSeats, seatId])
     }
+  }
 
-    return (
-        <div className="booking-container">
+  return (
+    <div className="seats-container">
 
-            <h2>Válassz helyet</h2>
+      <h2>Foglalás (Film ID: {id})</h2>
 
-            <div className="screen">VÁSZON</div>
+      <div className="screen">VÁSZON</div>
 
-            <div className="seats">
-                {[...Array(rows)].map((_, row) => (
-                    <div key={row} className="row">
-                        {[...Array(cols)].map((_, col) => {
-                            const seatId = `${row}-${col}`
+      <div className="seats-grid">
 
-                            const isReserved = reservedSeats.includes(seatId)
-                            const isSelected = selectedSeats.includes(seatId)
+        {[...Array(rows)].map((_, row) => (
+          <div key={row} className="seat-row">
 
-                            return (
-                                <div
-                                    key={col}
-                                    className={`seat 
-                                        ${isReserved ? "reserved" : ""} 
-                                        ${isSelected ? "selected" : ""}`}
-                                    onClick={() => toggleSeat(row, col)}
-                                />
-                            )
-                        })}
-                    </div>
-                ))}
-            </div>
+            {[...Array(cols)].map((_, col) => {
+              const seatId = `${row}-${col}`
 
-            <div className="summary">
-                <p>Kiválasztott helyek: {selectedSeats.length}</p>
-                <p>Összeg: {selectedSeats.length * 2500} Ft</p>
-                <button>Foglalás</button>
-            </div>
+              const isReserved = reservedSeats.includes(seatId)
+              const isSelected = selectedSeats.includes(seatId)
 
-        </div>
-    )
+              return (
+                <div
+                  key={col}
+                  className={`seat 
+                    ${isReserved ? "reserved" : ""} 
+                    ${isSelected ? "selected" : ""}`}
+                  onClick={() => toggleSeat(row, col)}
+                />
+              )
+            })}
+
+          </div>
+        ))}
+
+      </div>
+
+      <div className="summary">
+        <p>Kiválasztott helyek: {selectedSeats.join(", ")}</p>
+        <p>Összeg: {selectedSeats.length * 2500} Ft</p>
+
+        <button onClick={() => console.log({
+          movieId: id,
+          seats: selectedSeats
+        })}>
+          Foglalás
+        </button>
+      </div>
+
+    </div>
+  )
 }

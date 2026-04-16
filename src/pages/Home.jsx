@@ -49,7 +49,7 @@ export default function Home() {
             try {
                 const res = await fetch("http://192.168.9.110:4500/movies/all")
                 const data = await res.json()
-
+                console.log(data);
                 // ha {movies: []}
                 setMovies(data.movies || data)
 
@@ -99,16 +99,16 @@ export default function Home() {
 
                 <button onClick={prevSlide}>❮</button>
 
-                <div  className="wrapper ">
+                <div className="wrapper ">
                     <div className="images ">
 
                         {movies
                             .slice(startIndex, startIndex + visibleCount)
                             .map((movie, i) => (
 
-                                <div className=""
-                                    key={movie.id || movie._id || i}
-                                    onClick={() => navigate("/movie/" + (movie.id || movie._id))}
+                                <div
+                                    key={movie.movield}
+                                    onClick={() => navigate("/movie/" + movie.movield)}
                                 >
 
                                     <img
