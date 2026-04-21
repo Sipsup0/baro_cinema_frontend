@@ -1,61 +1,152 @@
-.seats-container {
+.seats-page {
+  min-height: 100vh;
+  padding: 120px 20px 40px;
   text-align: center;
   color: white;
-  padding: 40px;
+}
+
+.seats-page h2 {
+  font-size: 34px;
+  margin-bottom: 30px;
 }
 
 .screen {
-  margin: 20px auto;
-  width: 300px;
-  padding: 10px;
-  background: #ccc;
+  margin: 0 auto 35px;
+  width: 420px;
+  max-width: 100%;
+  background: #d9d9d9;
   color: black;
-  border-radius: 10px;
+  padding: 14px;
+  border-radius: 14px;
+  font-size: 20px;
+  font-weight: 700;
 }
 
+/* SZÉKEK */
 .seats-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  align-items: center;
-}
-
-.seat-row {
-  display: flex;
-  gap: 10px;
+  display: grid;
+  grid-template-columns: repeat(5, 70px);
+  gap: 16px;
+  justify-content: center;
+  margin: 0 auto 40px;
+  width: fit-content;
+  max-width: 100%;
 }
 
 .seat {
-  width: 40px;
-  height: 40px;
-  background: #444;
-  border-radius: 6px;
+  width: 70px;
+  height: 70px;
+  background: #4a4a4a;
+  border-radius: 12px;
   cursor: pointer;
   transition: 0.2s;
 }
 
 .seat:hover {
-  transform: scale(1.1);
+  transform: scale(1.05);
 }
 
 .seat.selected {
-  background: #ff8800;
+  background: limegreen;
 }
 
-.seat.reserved {
+.seat.occupied {
   background: red;
   cursor: not-allowed;
 }
 
-.summary {
-  margin-top: 30px;
+/* INFO */
+.info {
+  margin-top: 10px;
+  font-size: 18px;
+  line-height: 1.7;
 }
 
-button {
-  padding: 10px 20px;
-  background: linear-gradient(120deg,#ff8800,#e000d5);
+/* GOMB */
+.book-btn {
+  margin-top: 16px;
+  padding: 14px 34px;
   border: none;
-  border-radius: 8px;
-  color: white;
+  border-radius: 12px;
   cursor: pointer;
+  background: linear-gradient(120deg, #ff8800, #e000d5);
+  color: white;
+  font-size: 18px;
+  width: auto;
+}
+
+/* TABLET */
+@media (max-width: 768px) {
+  .seats-page {
+      padding: 105px 16px 32px;
+  }
+
+  .seats-page h2 {
+      font-size: 28px;
+      margin-bottom: 24px;
+  }
+
+  .screen {
+      width: 320px;
+      padding: 12px;
+      font-size: 18px;
+  }
+
+  .seats-grid {
+      grid-template-columns: repeat(5, 56px);
+      gap: 12px;
+  }
+
+  .seat {
+      width: 56px;
+      height: 56px;
+      border-radius: 10px;
+  }
+
+  .info {
+      font-size: 17px;
+  }
+}
+
+/* MOBIL */
+@media (max-width: 480px) {
+  .seats-page {
+      padding: 95px 12px 28px;
+  }
+
+  .seats-page h2 {
+      font-size: 22px;
+      margin-bottom: 18px;
+  }
+
+  .screen {
+      width: 240px;
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 10px;
+      margin-bottom: 24px;
+  }
+
+  .seats-grid {
+      grid-template-columns: repeat(5, 44px);
+      gap: 8px;
+      margin-bottom: 28px;
+  }
+
+  .seat {
+      width: 44px;
+      height: 44px;
+      border-radius: 8px;
+  }
+
+  .info {
+      font-size: 15px;
+      line-height: 1.5;
+  }
+
+  .book-btn {
+      padding: 12px 28px;
+      font-size: 16px;
+      border-radius: 10px;
+  }
 }

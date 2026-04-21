@@ -1,47 +1,44 @@
-import { Link } from 'react-router-dom'
-import Button from './Button'
+import { useState } from "react"
+import { Link } from "react-router-dom"
+import Button from "./Button"
 import "../pages/NavBar.css"
 
-export default function NavBar({ user, onLogout, }) {
-  //console.log(user);
+export default function NavBar({ user, onLogout }) {
+  const [menuOpen, setMenuOpen] = useState(false)
+
   const isLoggedIn = !!user
-  //console.log(isLoggedIn);
-  const isAdmin = user?.role === 'admin'
-  console.log(isAdmin);
+  const isAdmin = user?.role === "admin"
+
+  function closeMenu() {
+    setMenuOpen(false)
+  }
 
   return (
     <div className="navbar">
-
-      <div className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>
-        ☰
-      </div>
-
-      {/* BAL OLDAL */}
       <div className="nav-left">
-        <img src="/pictures/logo.png" alt="logo" className="logoPicture" />
+        <Link to="/" onClick={closeMenu}>
+          <img src="/pictures/logo.png" alt="logo" className="logoPicture" />
+        </Link>
       </div>
 
-      {/* KÖZÉP */}
       <div className="nav-center">
         <img src="/pictures/gps.png" className="gpsImage" alt="gps" />
         <span>Debrecen</span>
       </div>
 
-      {/* JOBB OLDAL */}
-      <div className="nav-right">
+      <div className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>
+        {menuOpen ? "✕" : "☰"}
+      </div>
 
+      <div className={`nav-right ${menuOpen ? "active" : ""}`}>
         {!isLoggedIn && (
           <>
-            <Link to="/" className="nav-link">
-              Vissza a főoldalra
-            </Link>
-
-            <Link to="/login" className="nav-link">
+            <Link to="/login" className="nav-link" onClick={closeMenu}>
               <img src="/pictures/user.png" className="userImage" alt="user" />
               Bejelentkezés
             </Link>
 
-            <Link to="/register" className="nav-link">
+            <Link to="/register" className="nav-link" onClick={closeMenu}>
               Regisztráció
             </Link>
           </>
@@ -49,10 +46,12 @@ export default function NavBar({ user, onLogout, }) {
 
         {isLoggedIn && (
           <>
-            <Link to="/" className="nav-link">Fiókom</Link>
+            <Link to="/" className="nav-link" onClick={closeMenu}>
+              Fiókom
+            </Link>
 
-            {(
-              <Link to="/admin" className="admin-link">
+            {isAdmin && (
+              <Link to="/admin" className="nav-link admin-link" onClick={closeMenu}>
                 Admin panel
               </Link>
             )}
@@ -60,12 +59,14 @@ export default function NavBar({ user, onLogout, }) {
             <Button
               buttonClass="logout-btn"
               content="Kijelentkezés"
-              onClick={onLogout}
+              onClick={() => {
+                closeMenu()
+                onLogout()
+              }}
             />
           </>
         )}
       </div>
-
     </div>
   )
 }

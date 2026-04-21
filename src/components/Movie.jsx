@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { useParams } from "react-router-dom"
 import NavBar from "./NavBar"
 import "../pages/Seats.css"
 
-navigate("/seats/" + movie.movieId)
+navigate("/seats/" + movie.movieId, { state: movie })
 
 export default function Movie({ user, onLogout, }) {
 
     const navigate = useNavigate()
+    const { id } = useParams()
 
     const [movies, setMovies] = useState([])
     const [error, setError] = useState(null)
@@ -17,7 +19,7 @@ export default function Movie({ user, onLogout, }) {
         async function loadMovies() {
             try {
 
-                const res = await fetch("http://192.168.9.110:4500/movies/all")
+                const res = await fetch("/movies/all")
 
                 const data = await res.json()
                 setMovies(data)

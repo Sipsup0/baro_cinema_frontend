@@ -1,77 +1,118 @@
-import { useState } from "react"
-import { useParams } from "react-router-dom"
-import "./Seats.css"
+import { useState, useEffect } from "react"
+import { useParams, useNavigate } from "react-router-dom"
+import NavBar from "../components/NavBar"
+import "../pages/Seats.css"
+
+import { whoami, logout } from "../users"
 
 export default function Seats() {
 
-  const { id } = useParams() // 🎬 melyik filmre foglalunk
+  const { id } = useParams() // URL: /seats/:id
+  const navigate = useNavigate()
+
+  // user
+  const [user, setUser] = useState(null)
+  const [userError, setUserError] = useState(null)
+
+  // movie
+  const [movie, setMovie] = useState(null)
+
+  // seats
+  const [selectedSeats, setSelectedSeats] = useState([])
 
   const rows = 5
   const cols = 5
 
-  const [selectedSeats, setSelectedSeats] = useState([])
+  // user betoltes
+  useEffect(() => {
+    async function loadUser() {
+      const data = await whoami()
+      if (!data?.error) setUser(data)
+      else setUserError(data.error)
+    }
+    loadUser()
+  }, [])
 
-  // később backendből jön
-  const reservedSeats = ["1-1", "2-3"]
+  // film betoltes backendbol
+  useEffect(() => {
+    async function loadMovie() {
+      try {
+        const res = await fetch("/movies/all")
+        const data = await res.json()
 
-  function toggleSeat(row, col) {
-    const seatId = `${row}-${col}`
+        const found = data.find(m => m.movieId == id)
+        setMovie(found)
 
-    if (reservedSeats.includes(seatId)) return
+      } catch (err) {
+        console.error(err)
+      }
+    }
 
-    if (selectedSeats.includes(seatId)) {
-      setSelectedSeats(selectedSeats.filter(s => s !== seatId))
+    loadMovie()
+  }, [id])
+
+  // logout
+  async function onLogout() {
+    const data = await logout()
+    if (data.error) return setUserError(data.error)
+    setUser(null)
+    navigate("/")
+  }
+
+  // szek valasztas
+  function toggleSeat(index) {
+    if (selectedSeats.includes(index)) {
+      setSelectedSeats(selectedSeats.filter(s => s !== index))
     } else {
-      setSelectedSeats([...selectedSeats, seatId])
+      setSelectedSeats([...selectedSeats, index])
     }
   }
 
+  // foglalas
+  function handleBooking() {
+    console.log("Film:", movie)
+    console.log("Székek:", selectedSeats)
+  }
+
   return (
-    <div className="seats-container">
+    <div>
 
-      <h2>Foglalás (Film ID: {id})</h2>
+      <NavBar user={user} onLogout={onLogout} />
 
-      <div className="screen">VÁSZON</div>
+      {userError && (
+        <div style={{ textAlign: "center", color: "red" }}>
+          {userError}
+        </div>
+      )}
 
-      <div className="seats-grid">
+      <div className="seats-page">
 
-        {[...Array(rows)].map((_, row) => (
-          <div key={row} className="seat-row">
+        <h2>
+          Foglalás: {movie ? movie.title : "Betöltés..."}
+        </h2>
 
-            {[...Array(cols)].map((_, col) => {
-              const seatId = `${row}-${col}`
+        <div className="screen">VÁSZON</div>
 
-              const isReserved = reservedSeats.includes(seatId)
-              const isSelected = selectedSeats.includes(seatId)
+        <div className="seats-grid">
+          {Array.from({ length: rows * cols }).map((_, i) => (
+            <div
+              key={i}
+              className={`seat ${selectedSeats.includes(i) ? "selected" : ""}`}
+              onClick={() => toggleSeat(i)}
+            />
+          ))}
+        </div>
 
-              return (
-                <div
-                  key={col}
-                  className={`seat 
-                    ${isReserved ? "reserved" : ""} 
-                    ${isSelected ? "selected" : ""}`}
-                  onClick={() => toggleSeat(row, col)}
-                />
-              )
-            })}
+        <div className="info">
+          <p>Kiválasztott helyek: {selectedSeats.length}</p>
+          <p>Összeg: {selectedSeats.length * 2000} Ft</p>
+        </div>
 
-          </div>
-        ))}
-
-      </div>
-
-      <div className="summary">
-        <p>Kiválasztott helyek: {selectedSeats.join(", ")}</p>
-        <p>Összeg: {selectedSeats.length * 2500} Ft</p>
-
-        <button onClick={() => console.log({
-          movieId: id,
-          seats: selectedSeats
-        })}>
+        <button className="book-btn" onClick={handleBooking}>
           Foglalás
         </button>
-      </div>
 
+      </div>
     </div>
   )
 }

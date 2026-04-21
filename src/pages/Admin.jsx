@@ -2,117 +2,194 @@ import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import NavBar from "../components/NavBar"
 import "./Admin.css"
+import { whoami, logout } from "../users"
 
 export default function Admin() {
-
     const navigate = useNavigate()
 
     const [movies, setMovies] = useState([])
-    const [editingMovie, setEditingMovie] = useState(null)
+    const [editingIndex, setEditingIndex] = useState(null)
+
     const [form, setForm] = useState({
+        movieId: null,
         title: "",
         genre: "",
-        length: "",
+        duration: "",
         image: ""
     })
 
+    const [user, setUser] = useState(null)
+    const [userError, setUserError] = useState(null)
+
     useEffect(() => {
         loadMovies()
+        loadUser()
     }, [])
 
+    async function loadUser() {
+        const data = await whoami()
+        if (!data?.error) setUser(data)
+        else setUserError(data.error)
+    }
+
+    async function onLogout() {
+        const data = await logout()
+        if (data.error) return setUserError(data.error)
+        setUser(null)
+        navigate("/")
+    }
+
     async function loadMovies() {
-        const res = await fetch("http://192.168.9.110:4500/movies/all")
-        const data = await res.json()
-        setMovies(data)
+        try {
+            const res = await fetch("/movies/all")
+            const data = await res.json()
+            setMovies(Array.isArray(data) ? data : [])
+        } catch (err) {
+            console.error(err)
+        }
     }
 
-    /* -------- DELETE -------- */
+    async function handleDelete(movieId) {
+        try {
+            await fetch(`/movies/delete/${movieId}`, {
+                method: "DELETE",
+                credentials: "include"
+            })
 
-    async function handleDelete(id) {
-        await fetch(`http://192.168.9.110:4500/movies/delete/${id}`, {
-            method: "DELETE",
-            credentials: "include" // auth miatt!
-        })
-
-        setMovies(movies.filter(m => m.id !== id))
+            setMovies(prev => prev.filter(m => m.movieId !== movieId))
+        } catch (err) {
+            console.error(err)
+        }
     }
 
-    /* -------- EDIT -------- */
-
-    function startEdit(movie) {
-        setEditingMovie(movie.id)
+    function startEdit(movie, index) {
+        setEditingIndex(index)
         setForm({
-            title: movie.title,
-            genre: movie.genre,
-            length: movie.length
+            movieId: movie.movieId,
+            title: movie.title || "",
+            genre: movie.genre || "",
+            duration: movie.duration || "",
+            image: movie.image || ""
+        })
+    }
+
+    function cancelEdit() {
+        setEditingIndex(null)
+        setForm({
+            movieId: null,
+            title: "",
+            genre: "",
+            duration: "",
+            image: ""
         })
     }
 
     async function handleUpdate() {
-        await fetch("http://192.168.9.110:4500/movies/addmovie", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(form)
-        })
-        setEditingId(null)
-        loadMovies()
+        try {
+            await fetch("/movies/addmovie", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(form),
+                credentials: "include"
+            })
+
+            setMovies(prev =>
+                prev.map(movie =>
+                    movie.movieId === form.movieId
+                        ? {
+                            ...movie,
+                            title: form.title,
+                            genre: form.genre,
+                            duration: form.duration,
+                            image: form.image
+                        }
+                        : movie
+                )
+            )
+
+            cancelEdit()
+        } catch (err) {
+            console.error(err)
+        }
     }
 
     return (
-        <div>
+        <div className="admin-page">
+            <NavBar user={user} onLogout={onLogout} />
 
-            <NavBar />
+            {userError && <div className="error">{userError}</div>}
 
             <h1 className="admin-title">Admin Panel</h1>
 
             <div className="admin-container">
+                {movies.map((movie, index) => (
+                    <div key={movie.movieId || index} className="admin-card">
+                        <img src={movie.image} alt={movie.title} />
 
-                {movies.map(movie => (
-
-                    <div key={movie.id} className="admin-card">
-
-                        <img src={movie.image} />
-
-                        {editingMovie === movie.id ? (
+                        {editingIndex === index ? (
                             <>
                                 <input
+                                    type="text"
                                     value={form.title}
-                                    onChange={e => setForm({ ...form, title: e.target.value })}
+                                    onChange={e =>
+                                        setForm({ ...form, title: e.target.value })
+                                    }
+                                    placeholder="Film címe"
                                 />
 
                                 <input
+                                    type="text"
                                     value={form.genre}
-                                    onChange={e => setForm({ ...form, genre: e.target.value })}
+                                    onChange={e =>
+                                        setForm({ ...form, genre: e.target.value })
+                                    }
+                                    placeholder="Műfaj"
                                 />
 
                                 <input
-                                    value={form.length}
-                                    onChange={e => setForm({ ...form, length: e.target.value })}
+                                    type="text"
+                                    value={form.duration}
+                                    onChange={e =>
+                                        setForm({ ...form, duration: e.target.value })
+                                    }
+                                    placeholder="Időtartam"
                                 />
 
-                                <button onClick={() => handleUpdate(movie.id)}>Mentés</button>
+                                <input
+                                    type="text"
+                                    value={form.image}
+                                    onChange={e =>
+                                        setForm({ ...form, image: e.target.value })
+                                    }
+                                    placeholder="Kép URL"
+                                />
+
+                                <div className="admin-buttons">
+                                    <button className="save-btn" onClick={handleUpdate}>
+                                        Mentés
+                                    </button>
+                                    <button className="cancel-btn" onClick={cancelEdit}>
+                                        Mégse
+                                    </button>
+                                </div>
                             </>
                         ) : (
                             <>
                                 <h3>{movie.title}</h3>
                                 <p>{movie.genre}</p>
-                                <span>{movie.length} perc</span>
+                                <span>{movie.duration}</span>
 
                                 <div className="admin-buttons">
-                                    <button onClick={() => startEdit(movie)}>✏️</button>
-                                    <button onClick={() => handleDelete(movie.id)}>🗑</button>
+                                    <button onClick={() => startEdit(movie, index)}>✏️</button>
+                                    <button onClick={() => handleDelete(movie.movieId)}>🗑️</button>
                                 </div>
                             </>
                         )}
-
                     </div>
-
                 ))}
-
             </div>
-
         </div>
     )
 }

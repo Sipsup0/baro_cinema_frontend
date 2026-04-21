@@ -47,7 +47,7 @@ export default function Home() {
     useEffect(() => {
         async function loadMovies() {
             try {
-                const res = await fetch("http://192.168.9.110:4500/movies/all")
+                const res = await fetch("/movies/all")
                 const data = await res.json()
                 console.log(data);
                 // ha {movies: []}
@@ -81,15 +81,9 @@ export default function Home() {
     }
 
     return (
-        <div>
+        <div className="home-page">
 
             <NavBar user={user} onLogout={onLogout} />
-
-            {userError && (
-                <div className='alert alert-danger text-center my-2'>
-                    {userError}
-                </div>
-            )}
 
             <div className="title">
                 <h1>Most műsoron</h1>
@@ -99,26 +93,27 @@ export default function Home() {
 
                 <button onClick={prevSlide}>❮</button>
 
-                <div className="wrapper ">
-                    <div className="images ">
+                <div className="wrapper">
+                    <div className="images">
 
                         {movies
                             .slice(startIndex, startIndex + visibleCount)
                             .map((movie, i) => (
 
                                 <div
-                                    key={movie.movield}
-                                    onClick={() => navigate("/movie/" + movie.movield)}
+                                    className="movie-card"
+                                    key={movie.movieId || i}
+                                    onClick={() => navigate("/seats/" + movie.movieId)}
                                 >
 
                                     <img
-                                        src={movie.image || movie.picture}
+                                        src={movie.image}
                                         className="movie-img"
                                         alt={movie.title}
                                     />
 
                                     <div className="movie-title">
-                                        {movie.title || movie.name} | {movie.genre} | {movie.length || movie.duration} perc
+                                        {movie.title} | {movie.genre} | {movie.duration}
                                     </div>
 
                                 </div>

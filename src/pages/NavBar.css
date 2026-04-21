@@ -1,167 +1,213 @@
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: "Inter", sans-serif;
-    width: 100%;
-  }
-  
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Inter", sans-serif;
+}
 
- /* NAVBAR */
-.navbar{
-    position: fixed;
-    top: 0 ;
-    background:black;
-    color:white;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    height:100px;
-    border-bottom:2px solid;
-    border-color:#ff7a00;
-  }
-  
-  /* BAL OLDAL */
-  .nav-left{
-    display:flex;
-    align-items:center;
-  }
-  
-  .logoPicture{
-    width:180px;
-  }
-  
-  /* KÖZÉP */
-  .nav-center{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    font-size:14px;
-  }
-  
-  .gpsImage{
-    width:40px;
-  }
+/* NAVBAR */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  background: black;
+  color: white;
+  border-bottom: 2px solid #ff7a00;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 36px;
+  z-index: 1000;
+}
 
-  
-  /* JOBB OLDAL */
-  .nav-right{
-    display:flex;
-    align-items:center;
-    gap:25px;
-  }
-  
-  .nav-link{
-    text-decoration:none;
-    color:#ccc;
-    font-size:14px;
-    display:flex;
-    align-items:center;
-    gap:25px;
-  }
+/* BAL OLDAL */
+.nav-left {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
 
-  .nav-admin-link{
-    background:#ff7a00;
-    border:none;
-    margin-right: 30px;
-    color:white;
-    border-radius:5px;
-    cursor:pointer;
-  }
-  
-  .nav-link:hover{
-    color:white;
-  }
-  
-  .userImage{
-    width:30px;
-    margin-left: 200px;
-  }
-  
-  .logout-btn{
-    background:#ff7a00;
-    border:none;
-    margin-right: 30px;
-    color:white;
-    border-radius:5px;
-    cursor:pointer;
-  }
-  
-  .logout-btn:hover{
-    background:#ff9c33;
-  }
-  
-  .admin-link {
-    color: white;
-    font-weight: bold;
-  }
+.logoPicture {
+  width: 140px;
+  height: auto;
+  display: block;
+}
 
-  .nav-link {
-    padding: 8px;
-    text-decoration: none;
-  }
+/* KÖZÉP */
+.nav-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex: 1;
+  font-size: 16px;
+  color: white;
+}
 
-  /* tablet */
+.gpsImage {
+  width: 28px;
+  height: 28px;
+  display: block;
+}
+
+/* JOBB OLDAL */
+.nav-right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 18px;
+  flex: 1;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: #ccc;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  white-space: nowrap;
+  width: auto;
+  transition: 0.2s;
+}
+
+.nav-link:hover {
+  color: white;
+}
+
+.admin-link {
+  color: white;
+  font-weight: 700;
+}
+
+.userImage {
+  width: 24px;
+  height: 24px;
+  display: block;
+  flex-shrink: 0;
+}
+
+.logout-btn,
+.nav-admin-link {
+  background: #ff7a00;
+  border: none;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  padding: 12px 22px;
+  font-size: 15px;
+  font-weight: 600;
+  width: auto;
+  white-space: nowrap;
+  transition: 0.2s;
+}
+
+.logout-btn:hover,
+.nav-admin-link:hover {
+  background: #ff9c33;
+}
+
+/* HAMBURGER */
+.hamburger {
+  display: none;
+  font-size: 30px;
+  cursor: pointer;
+  color: white;
+  width: auto;
+  z-index: 1100;
+}
+
+/* TABLET */
 @media (max-width: 900px) {
-  .nav-center {
-    font-size: 12px;
-  }
-
-  .nav-right {
-    gap: 15px;
+  .navbar {
+    padding: 0 20px;
   }
 
   .logoPicture {
-    width: 140px;
+    width: 115px;
+  }
+
+  .nav-center {
+    font-size: 14px;
+  }
+
+  .nav-right {
+    gap: 12px;
+  }
+
+  .nav-link {
+    font-size: 14px;
+  }
+
+  .logout-btn,
+  .nav-admin-link {
+    padding: 10px 16px;
+    font-size: 14px;
   }
 }
 
-/* hamburger alapból rejtve */
-.hamburger {
-  display: none;
-  font-size: 28px;
-  cursor: pointer;
-}
-
-/* mobil */
+/* MOBIL */
 @media (max-width: 768px) {
+  .navbar {
+    height: 80px;
+    padding: 0 12px;
+  }
 
-  .hamburger {
-    display: block;
+  .logoPicture {
+    width: 90px;
   }
 
   .nav-center {
     display: none;
+  }
+
+  .hamburger {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    width: 40px;
+    height: 40px;
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+
+  .nav-left {
+    flex: unset;
   }
 
   .nav-right {
     position: absolute;
     top: 80px;
     right: 0;
+    width: 220px;
     background: black;
+    border-left: 1px solid #222;
+    border-bottom: 1px solid #222;
+    padding: 18px 16px;
     flex-direction: column;
-    width: 200px;
-    padding: 20px;
-    gap: 15px;
-
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 12px;
     display: none;
+    z-index: 1050;
   }
 
   .nav-right.active {
     display: flex;
   }
 
-  .userImage {
-    margin-left: 0;
+  .nav-link,
+  .logout-btn,
+  .nav-admin-link {
+    width: 100%;
+    justify-content: flex-start;
   }
-}
 
-.logoPicture {
-  width: 180px;
-}
-
-@media (max-width: 768px) {
-  .logoPicture {
-    width: 100px;
+  .navbar .nav-right:not(.active) {
+    display: none;
   }
 }
