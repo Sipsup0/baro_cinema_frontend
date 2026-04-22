@@ -1,172 +1,194 @@
-import { useState, useEffect, use } from "react";
-import { useNavigate } from "react-router-dom";
-import NavBar from "../components/NavBar";
+import { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
+import NavBar from "../components/NavBar"
+import "./Admin.css"
+import { whoami, logout } from "../users"
 
-import "../pages/NavBar.css"
-import "../pages/Admin.css"
-import { whoami, logout, admin } from "../users"
-
-import Pic1 from '../../pictures/BoneLake.jpg'
-import Pic2 from '../../pictures/Sikoly_7.jpg'
-import Pic3 from '../../pictures/Zootropolis_2.jpg'
-import Pic4 from '../../pictures/Avatarfireandash.jpg'
-import Pic5 from '../../pictures/Thehousemaid.jpg'
-import Pic6 from '../../pictures/Scarymovie_6.jfif'
-
-export default function Home() {
+export default function Admin() {
     const navigate = useNavigate()
+
+    const [movies, setMovies] = useState([])
+    const [editingIndex, setEditingIndex] = useState(null)
+
+    const [form, setForm] = useState({
+        movieId: null,
+        title: "",
+        genre: "",
+        duration: "",
+        image: ""
+    })
+
     const [user, setUser] = useState(null)
     const [userError, setUserError] = useState(null)
-    console.log(userError);
 
-    const movies = [
-        {
-            id: 1,
-            title: "A csontok tava",
-            image: {Pic1},
-            genre: "Horror",
-            time: "94 perc"
-        },
-        {
-            id: 2,
-            title: "Sikoly 7",
-            image: {Pic2},
-            genre: "Horror",
-            time: "115 perc"
-        },
-        {
-            id: 3,
-            title: "Zootropolis 2",
-            image: {Pic3},
-            genre: "Animációs film",
-            time: "111 perc"
-        },
-        {
-            id: 4,
-            title: "AVATAR: Tűz és Hamu",
-            image: {Pic4},
-            genre: "Horror",
-            time: "197 perc"
-        },
-        {
-            id: 5,
-            title: "The Housemaid - A téboly otthona",
-            image: {Pic5},
-            genre: "Thriller",
-            time: "131 perc"
-        },
-        {
-            id: 6,
-            title: "Horrorra Akadva 6 (HAMAROSAN)",
-            image: {Pic6},
-            genre: "Horror, Vígjáték",
-            time: "- perc"
-        },
-    ]
-
-    //console.log(user);
     useEffect(() => {
-        async function load() {
-            const data = await whoami()
-            console.log(data);
-            if (!data?.error) {
-                setUser(data)
-            }
-            setUserError(data.error)
-
-        }
-        load()
+        loadMovies()
+        loadUser()
     }, [])
+
+    async function loadUser() {
+        const data = await whoami()
+        if (!data?.error) setUser(data)
+        else setUserError(data.error)
+    }
 
     async function onLogout() {
         const data = await logout()
-        if (data.error) {
-            return setUserError(data.error)
-        }
+        if (data.error) return setUserError(data.error)
         setUser(null)
-        navigate('/')
+        navigate("/")
     }
 
-    async function isAdmin() {
-        const data = await admin()
-        if (data.error) {
-            return setUserError(data.error)
+    async function loadMovies() {
+        try {
+            const res = await fetch("/movies/all")
+            const data = await res.json()
+            setMovies(Array.isArray(data) ? data : [])
+        } catch (err) {
+            console.error(err)
         }
-        setUser(null)
-        navigate('/')
     }
+
+    async function handleDelete(movieId) {
+        try {
+            await fetch(`/movies/delete/${movieId}`, {
+                method: "DELETE",
+                credentials: "include"
+            })
+
+            setMovies(prev => prev.filter(m => m.movieId !== movieId))
+        } catch (err) {
+            console.error(err)
+        }
+    }
+
+    function startEdit(movie, index) {
+        setEditingIndex(index)
+        setForm({
+            movieId: movie.movieId,
+            title: movie.title || "",
+            genre: movie.genre || "",
+            duration: movie.duration || "",
+            image: movie.image || ""
+        })
+    }
+
+    function cancelEdit() {
+        setEditingIndex(null)
+        setForm({
+            movieId: null,
+            title: "",
+            genre: "",
+            duration: "",
+            image: ""
+        })
+    }
+
+    async function handleUpdate() {
+        try {
+            await fetch("/movies/addmovie", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(form),
+                credentials: "include"
+            })
+
+            setMovies(prev =>
+                prev.map(movie =>
+                    movie.movieId === form.movieId
+                        ? {
+                            ...movie,
+                            title: form.title,
+                            genre: form.genre,
+                            duration: form.duration,
+                            image: form.image
+                        }
+                        : movie
+                )
+            )
+
+            cancelEdit()
+        } catch (err) {
+            console.error(err)
+        }
+    }
+
     return (
+        <div className="admin-page">
+            <NavBar user={user} onLogout={onLogout} />
 
-        <div>
-            <div>
+            {userError && <div className="error">{userError}</div>}
 
-                <NavBar user={user} onLogout={onLogout}></NavBar>
-                {userError && <div className='alert alert-danger text-center my-2'>{userError}</div>}
-                <NavBar user={user} onLogout={isAdmin}></NavBar>
-                {userError && <div className='alert alert-danger text-center my-2'>{userError}</div>}
-                <div className="title">
-                    <h1>Most műsoron</h1>
-                </div>
-                <div className="container">
+            <h1 className="admin-title">Admin Panel</h1>
 
-                    <div className="mySlides">
-                        <div className="numbertext">1 / 6</div>
-                        <img src={Pic1} style={{width:100}} />
+            <div className="admin-container">
+                {movies.map((movie, index) => (
+                    <div key={movie.movieId || index} className="admin-card">
+                        <img src={movie.image} alt={movie.title} />
+
+                        {editingIndex === index ? (
+                            <>
+                                <input
+                                    type="text"
+                                    value={form.title}
+                                    onChange={e =>
+                                        setForm({ ...form, title: e.target.value })
+                                    }
+                                    placeholder="Film címe"
+                                />
+
+                                <input
+                                    type="text"
+                                    value={form.genre}
+                                    onChange={e =>
+                                        setForm({ ...form, genre: e.target.value })
+                                    }
+                                    placeholder="Műfaj"
+                                />
+
+                                <input
+                                    type="text"
+                                    value={form.duration}
+                                    onChange={e =>
+                                        setForm({ ...form, duration: e.target.value })
+                                    }
+                                    placeholder="Időtartam"
+                                />
+
+                                <input
+                                    type="text"
+                                    value={form.image}
+                                    onChange={e =>
+                                        setForm({ ...form, image: e.target.value })
+                                    }
+                                    placeholder="Kép URL"
+                                />
+
+                                <div className="admin-buttons">
+                                    <button className="save-btn" onClick={handleUpdate}>
+                                        Mentés
+                                    </button>
+                                    <button className="cancel-btn" onClick={cancelEdit}>
+                                        Mégse
+                                    </button>
+                                </div>
+                            </>
+                        ) : (
+                            <>
+                                <h3>{movie.title}</h3>
+                                <p>{movie.genre}</p>
+                                <span>{movie.duration}</span>
+
+                                <div className="admin-buttons">
+                                    <button onClick={() => startEdit(movie, index)}>✏️</button>
+                                    <button onClick={() => handleDelete(movie.movieId)}>🗑️</button>
+                                </div>
+                            </>
+                        )}
                     </div>
-
-                    <div className="mySlides">
-                        <div className="numbertext">2 / 6</div>
-                        <img src={Pic2} style={{width:100}} />
-                    </div>
-
-                    <div className="mySlides">
-                        <div className="numbertext">3 / 6</div>
-                        <img src={Pic3} style={{width:100}} />
-                    </div>
-
-                    <div className="mySlides">
-                        <div className="numbertext">4 / 6</div>
-                        <img src={Pic4} style={{width:100}} />
-                    </div>
-
-                    <div className="mySlides">
-                        <div className="numbertext">5 / 6</div>
-                        <img src={Pic5} style={{width:100}} />
-                    </div>
-
-                    <div className="mySlides">
-                        <div className="numbertext">6 / 6</div>
-                        <img src={Pic6} style={{width:100}} />
-                    </div>
-
-                    <a className="prev" onclick="plusSlides(-1)">&#10094;</a>
-                    <a className="next" onclick="plusSlides(1)">&#10095;</a>
-
-                    <div className="caption-container">
-                        <p id="caption"></p>
-                    </div>
-
-                    <div className="row">
-                        <div className="column">
-                            <img className="demo cursor" src={Pic1} style={{width:200}} onclick="currentSlide(1)" alt="A csontok tava" />
-                        </div>
-                        <div className="column">
-                            <img className="demo cursor" src={Pic2} style={{width:190}} onclick="currentSlide(2)" alt="Sikoly 7" />
-                        </div>
-                        <div className="column">
-                            <img className="demo cursor" src={Pic3} style={{width:240}} onclick="currentSlide(3)" alt="Zootropolis 2" />
-                        </div>
-                        <div className="column">
-                            <img className="demo cursor" src={Pic4} style={{width:200}} onclick="currentSlide(4)" alt="AVATAR: Tűz és Hamu" />
-                        </div>
-                        <div className="column">
-                            <img className="demo cursor" src={Pic5} style={{width:200}} onclick="currentSlide(5)" alt="The Housemaid - A téboly otthona" />
-                        </div>
-                        <div className="column">
-                            <img className="demo cursor" src={Pic6} style={{width:200}} onclick="currentSlide(6)" alt="Horrorra Akadva 6 (HAMAROSAN)" />
-                        </div>
-                    </div>
-                </div>
+                ))}
             </div>
         </div>
     )

@@ -1,218 +1,255 @@
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    justify-content: center;
-    font-family: "Inter", sans-serif;
-  }
-  
-  .login-page {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 40px;
-  }
-  
-  img{
-     width: 400px;
-  }
-  
-  /* main */
-  .login-container {
-    width: 1100px;
-    max-width: 100%;
-    min-height: 650px;
-    background: #ffffff;
-    display: flex;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
-  }
-  
-  /* bal oldal */
-  .login-left {
-    flex: 1;
-    background: linear-gradient(120deg, #db7500, #e000d5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 60px;
-    color: white;
-  }
-  
-  .brand {
-    text-align: center;
-  }
-  
-  .logo {
-    font-size: 50px;
-    margin-bottom: 20px;
-  }
-  
-  .brand h2 {
-    font-size: 28px;
-    letter-spacing: 2px;
-    margin-bottom: 15px;
-  
-  }
-  
-  .brand p {
-    font-size: 14px;
-    opacity: 0.9;
-    margin-bottom: 50px;
-  }
-  
-  /* jobb oldal */
-  .login-right {
-    flex: 1.2;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 60px;
-  }
-  
-  .form-wrapper {
-    width: 100%;
-    max-width: 420px;
-  }
-  
-  .form-wrapper h1 {
-    color: black;
-    width: 100%;
-    text-align: center;
-    font-size:25px;
-    margin-bottom: 50px;
-    border-radius: 12px;
-    padding: 15px;
-  }
-  
+.admin-page {
+  min-height: 100vh;
+  padding: 120px 32px 48px;
+}
 
-  .form-row {
-    display: flex;
-    gap: 20px;
-  }
-  
-  .form-group {
-    position: relative;
-    margin-bottom: 25px;
-    flex: 1;
-  }
-  
-  .form-group input {
-    width: 100%;
-    padding: 12px 10px;
-    border: none;
-    border-bottom: 2px solid #ddd;
-    font-size: 14px;
-    outline: none;
-    background: transparent;
-    transition: 0.3s;
-  }
-  
-  .form-group input:focus {
-    border-bottom: 2px solid #f7931e;
-  }
-  
-  .form-group label {
-    position: absolute;
-    left: 10px;
-    top: 12px;
-    font-size: 14px;
-    color: #999;
-    transition: 0.3s;
-    pointer-events: none;
-  }
-  
-  .form-group input:focus + label,
-  .form-group input:not(:placeholder-shown) + label {
-    top: -8px;
-    font-size: 11px;
-    color: #f7931e;
-  }
-  input{
-    color: #303030;
-  }
-  
-  /* Button */
-  .submit-btn {
-    width: 100%;
-    padding: 14px;
-    background: linear-gradient(120deg,#ff8800, #e000d5);
-    border: none;
-    border-radius: 30px;
-    color: white;
-    font-size: 16px;
-    letter-spacing: 1px;
-    cursor: pointer;
-    transition: 0.5s ease-in-out;
-    margin-top: 25px;
-  }
-  
-  .submit-btn:hover {
-    background: #313131;
-    transform: translateY(-3px);
-  }
-  
-  .register-link {
-    text-align: center;
-    margin-top: 20px;
-    font-size: 13px;
-    color: #666;
-  }
-  
-  .register-link span {
-    color: #f7931e;
-    font-weight: 600;
-    cursor: pointer;
+.admin-title {
+  text-align: center;
+  color: white;
+  margin: 0 0 36px;
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.error {
+  color: #ff4d4f;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.admin-container {
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 320px));
+  justify-content: center;
+  gap: 32px;
+}
+
+.admin-card {
+  background: #1b1b1b;
+  border-radius: 18px;
+  overflow: hidden;
+  padding: 0 0 20px;
+  transition: 0.25s ease;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 470px;
+}
+
+.admin-card:hover {
+  transform: translateY(-4px);
+}
+
+.admin-card img {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  display: block;
+  background: #111;
+}
+
+.admin-card h3 {
+  color: white;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.3;
+  margin: 18px 16px 8px;
+  min-height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.admin-card p {
+  color: #e6e6e6;
+  text-align: center;
+  font-size: 16px;
+  line-height: 1.4;
+  margin: 0 16px 8px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.admin-card span {
+  color: white;
+  display: block;
+  text-align: center;
+  font-size: 16px;
+  margin: 0 16px 18px;
+}
+
+.admin-card input {
+  width: calc(100% - 32px);
+  margin: 6px 16px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  background: #333;
+  color: white;
+  font-size: 15px;
+}
+
+.admin-card input::placeholder {
+  color: #bfbfbf;
+}
+
+.admin-buttons {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: auto;
+  padding: 8px 16px 0;
+}
+
+.admin-buttons button {
+  min-width: 90px;
+  height: 42px;
+  padding: 0 18px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  background: linear-gradient(120deg, #ff8800, #e000d5);
+  color: white;
+  font-size: 18px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.save-btn,
+.cancel-btn {
+  min-width: 110px !important;
+  height: 44px !important;
+  font-size: 16px !important;
+}
+
+.save-btn {
+  background: linear-gradient(120deg, #ff8800, #e000d5) !important;
+  color: white !important;
+}
+
+.cancel-btn {
+  background: #444 !important;
+  color: white !important;
+}
+
+/* TABLET */
+@media (max-width: 900px) {
+  .admin-page {
+      padding: 110px 20px 40px;
   }
 
-/*elfelejtett jelszó*/
-  .forgotPsw {
-    text-align: right;
-    font-size: 13px;
-    color: #f7931e;
-    margin-top: 25px;
-    cursor: pointer;
+  .admin-title {
+      font-size: 28px;
+      margin-bottom: 28px;
   }
 
-  .home-link{
-    text-align: center;
-    margin-top: 30px;
-    font-size: 13px;
-    color: #303030;
+  .admin-container {
+      grid-template-columns: repeat(auto-fit, minmax(240px, 280px));
+      gap: 24px;
   }
-  
-  /* Tablet */
-  @media (max-width: 1024px) {
-    .login-container {
-      flex-direction: column;
-    }
-  
-    .login-left {
-      padding: 40px;
-    }
-  
-    .login-right {
-      padding: 40px;
-    }
+
+  .admin-card {
+      min-height: 430px;
   }
-  
-  /* Mobil */
-  @media (max-width: 600px) {
-    .form-row {
-      flex-direction: column;
-    }
-  
-    .login-page {
-      padding: 20px;
-    }
-  
-    .login-left {
-      padding: 30px;
-    }
-  
-    .login-right {
-      padding: 30px 20px;
-    }
+
+  .admin-card img {
+      height: 220px;
   }
+
+  .admin-card h3 {
+      font-size: 18px;
+      min-height: 46px;
+  }
+
+  .admin-card p,
+  .admin-card span {
+      font-size: 15px;
+  }
+}
+
+/* MOBIL */
+@media (max-width: 600px) {
+  .admin-page {
+      padding: 100px 14px 28px;
+  }
+
+  .admin-title {
+      font-size: 24px;
+      margin-bottom: 22px;
+  }
+
+  .admin-container {
+      grid-template-columns: 1fr;
+      gap: 18px;
+  }
+
+  .admin-card {
+      width: 100%;
+      max-width: 360px;
+      min-height: auto;
+      margin: 0 auto;
+      border-radius: 16px;
+      padding-bottom: 16px;
+  }
+
+  .admin-card img {
+      height: 200px;
+  }
+
+  .admin-card h3 {
+      font-size: 17px;
+      margin: 14px 12px 6px;
+      min-height: auto;
+  }
+
+  .admin-card p {
+      font-size: 15px;
+      margin: 0 12px 6px;
+      min-height: auto;
+  }
+
+  .admin-card span {
+      font-size: 15px;
+      margin: 0 12px 14px;
+  }
+
+  .admin-card input {
+      width: calc(100% - 24px);
+      margin: 5px 12px;
+      padding: 10px 12px;
+      font-size: 14px;
+  }
+
+  .admin-buttons {
+      gap: 10px;
+      padding: 8px 12px 0;
+      flex-wrap: wrap;
+  }
+
+  .admin-buttons button {
+      min-width: 78px;
+      height: 40px;
+      padding: 0 14px;
+      font-size: 16px;
+      flex: 1;
+  }
+
+  .save-btn,
+  .cancel-btn {
+      min-width: 0 !important;
+      width: 100%;
+      height: 42px !important;
+      font-size: 15px !important;
+  }
+}
