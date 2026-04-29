@@ -213,6 +213,10 @@ PUT /movies/update/:movieId
 
 Így biztosítható, hogy szerkesztéskor csak a kiválasztott film módosuljon.
 
+Admin bejelentkezés:
+- Email: admin@admin.hu
+- Jelszó: admin
+
 ---
 
 ## 🔐 Felhasználó kezelés
@@ -290,34 +294,6 @@ A frontend alapértelmezés szerint a Vite szerveren indul el.
 
 ---
 
-## 🧪 Hasznos parancsok
-
-```bash
-npm run dev
-```
-
-Fejlesztői mód indítása.
-
-```bash
-npm run build
-```
-
-Production build készítése.
-
-```bash
-npm run preview
-```
-
-Build előnézetének futtatása.
-
-```bash
-npm run lint
-```
-
-Kódellenőrzés futtatása.
-
----
-
 ## 📱 Reszponzív működés
 
 A projekt több kijelzőmérethez is igazodik:
@@ -369,12 +345,6 @@ A projektben jelenleg működik:
 - admin dashboard,
 - film módosítás külön `PUT` végponton keresztül,
 - képfeltöltés admin felületen.
-
----
-
-## 👨‍💻 Készítette
-
-**Tóth Balázs**
 
 ---
 
