@@ -9,6 +9,24 @@
   force = true
 
 [[redirects]]
+  from = "/movies/*"
+  to = "https://nodejs211.dszcbaross.edu.hu/user/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/uploads/*"
+  to = "https://nodejs211.dszcbaross.edu.hu/user/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/seats/*"
+  to = "https://nodejs211.dszcbaross.edu.hu/user/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
