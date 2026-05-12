@@ -6,6 +6,7 @@ import "../pages/NavBar.css"
 import "../pages/Home.css"
 import { whoami, logout } from "../users"
 const BACKEND_URL = '/user'
+const IMG_URL = 'https://nodejs211.dszcbaross.edu.hu/uploads'
 
 export default function Home() {
 
@@ -102,12 +103,12 @@ export default function Home() {
 
                                 <div
                                     className="movie-card"
-                                    key={movie.movieId || i}
-                                    onClick={() => navigate("/seats/" + movie.movieId)}
+                                    key={movie.movieID || i}
+                                    onClick={() => navigate("/seats/" + movie.movieID)}
                                 >
 
                                     <img
-                                        src={movie.image}
+                                        src={`${IMG_URL}/${movie.movieimg}`}
                                         className="movie-img"
                                         alt={movie.title}
                                     />

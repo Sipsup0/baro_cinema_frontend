@@ -10,19 +10,25 @@
 
 [[redirects]]
   from = "/movies/*"
-  to = "https://nodejs211.dszcbaross.edu.hu/user/:splat"
+  to = "https://nodejs211.dszcbaross.edu.hu/movies/:splat"
   status = 200
   force = true
 
 [[redirects]]
   from = "/api/uploads/*"
-  to = "https://nodejs211.dszcbaross.edu.hu/user/:splat"
+  to = "https://nodejs211.dszcbaross.edu.hu/uploads/:splat"
   status = 200
   force = true
 
 [[redirects]]
   from = "/seats/*"
-  to = "https://nodejs211.dszcbaross.edu.hu/user/:splat"
+  to = "https://nodejs211.dszcbaross.edu.hu/seats/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/uploads/*"
+  to = "https://nodejs211.dszcbaross.edu.hu/uploads/:splat"
   status = 200
   force = true
 

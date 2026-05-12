@@ -19,6 +19,18 @@ export default defineConfig({
         target: 'https://nodejs211.dszcbaross.edu.hu',
         changeOrigin: true
       },
+      '/api/uploads': {
+        target: 'https://nodejs211.dszcbaross.edu.hu',
+        changeOrigin: true
+      },
+      '/seats':{
+        target: 'https://nodejs211.dszcbaross.edu.hu',
+        changeOrigin: true
+      },
+      '/uploads': {
+        target: 'https://nodejs211.dszcbaross.edu.hu',
+        changeOrigin: true
+      }
     },
   },
 })

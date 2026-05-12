@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom"
 import NavBar from "./NavBar"
 import "../pages/Seats.css"
 
-const BASE_URL = "http://localhost:3000"
+const BASE_URL = "/movies"
 
 export default function Movie({ user, onLogout }) {
 
@@ -16,7 +16,7 @@ export default function Movie({ user, onLogout }) {
     useEffect(() => {
         async function loadMovies() {
             try {
-                const res = await fetch(BASE_URL + "/movies/all")
+                const res = await fetch(BASE_URL + "/all")
                 const data = await res.json()
 
                 if (!res.ok) {
