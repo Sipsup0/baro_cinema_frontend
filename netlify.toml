@@ -3,7 +3,7 @@
   publish = "dist"
 
 [[redirects]]
-  from = "/users/*"
+  from = "/user/*"
   to = "https://nodejs211.dszcbaross.edu.hu/user/:splat"
   status = 200
   force = true
