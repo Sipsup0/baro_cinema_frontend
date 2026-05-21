@@ -63,16 +63,18 @@
 }
 
 /* GOMB */
-.book-btn {
+.booking-btn {
   margin-top: 16px;
-  padding: 14px 34px;
   border: none;
   border-radius: 12px;
   cursor: pointer;
   background: linear-gradient(120deg, #ff8800, #e000d5);
   color: white;
-  font-size: 18px;
   width: auto;
+}
+.home-link{
+  font-size: 20px;
+  margin-bottom: 30px;
 }
 
 /* TABLET */

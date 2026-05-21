@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import NavBar from "../components/NavBar"
 import "../pages/Seats.css"
-
+import { Link } from "react-router-dom"
 import { whoami, logout } from "../users"
 
 export default function Seats() {
@@ -108,8 +108,8 @@ export default function Seats() {
           <p>Összeg: {selectedSeats.length * 2000} Ft</p>
         </div>
 
-        <button className="book-btn" onClick={handleBooking}>
-          Foglalás
+        <button type="button" className="booking-btn" content="Foglalás" onClick={handleBooking}>
+          <Link to='/'><p className='home-link'>Foglalás</p></Link>
         </button>
 
       </div>

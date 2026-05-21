@@ -46,7 +46,7 @@ export default function NavBar({ user, onLogout }) {
 
         {isLoggedIn && (
           <>
-            <Link to="/" className="nav-link" onClick={closeMenu}>
+            <Link to="/edituser" className="nav-link" onClick={closeMenu}>
               Fiókom
             </Link>
 

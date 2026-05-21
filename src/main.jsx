@@ -8,6 +8,7 @@ import Login from './pages/Login'
 import Home from './pages/Home'
 import Admin from './pages/Admin'
 import Seats from "./pages/Seats"
+import User from './pages/User'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -18,6 +19,7 @@ createRoot(document.getElementById('root')).render(
         <Route path='/login' element={<Login/>} />
         <Route path='/admin' element={<Admin/>} />
         <Route path="/seats/:id" element={<Seats />} />
+        <Route path='/edituser' element={<User/>}/>
       </Routes>
     </BrowserRouter>
     
